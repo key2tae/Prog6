@@ -6,7 +6,7 @@
 
 CXX = g++
 CXXFLAGS =
-CPPFLAGS = -Wall -g -I/people/cs/s/sxp127930/include
+CPPFLAGS = -std=c++11 -Wall -g -I/people/cs/s/sxp127930/include
 LDFLAGS = -L/people/cs/s/sxp127930/lib
 LDLIBS = -lcdk -lcurses 
 
