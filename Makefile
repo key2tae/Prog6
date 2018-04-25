@@ -1,8 +1,7 @@
-#
-# UTD CS3377 CDK Example
-# Dr. Perkins
-# stephen.perkins@utdallas.edu
-#
+# Keerthana Ramesh
+# SE 3377.501
+# kxr144230@utdallas.edu
+ 
 
 CXX = g++
 CXXFLAGS =

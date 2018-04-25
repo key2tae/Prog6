@@ -1,9 +1,7 @@
 /*
- * Usage of CDK Matrix
- *
- * File:   example1.cc
- * Author: Stephen Perkins
- * Email:  stephen.perkins@utdallas.edu
+ * Keerthana Ramesh
+ * SE 3377.501
+ * kxr144230@utdallas.edu
  */
 
 #include <iostream>
@@ -25,12 +23,15 @@ const int maxRecordsStringLength = 25;
 
 using namespace std;
 
+
+// Classes to initialize vars
 class BinaryFileRecord
 {
 public:
   uint8_t strLength;
   char stringBuffer[maxRecordsStringLength];
 };
+
 
 class BinaryFileHeader
 {
@@ -43,6 +44,7 @@ public:
 
 int main()
 {
+  
   BinaryFileHeader *myHeader = new BinaryFileHeader();
 
   ifstream binInfile ("cs3377.bin", ios::in | ios::binary);
@@ -52,9 +54,10 @@ int main()
 
 
   BinaryFileRecord *myRecords = new BinaryFileRecord[myHeader -> numRecords]();
-  for(uint32_t i = 0; i < myHeader -> numRecords; i++)
+  for(uint32_t x = 0; x < myHeader -> numRecords; x++)
     {
-      binInfile.read((char*)(myRecords + i), sizeof(BinaryFileRecord));
+      // pointer to existing and allocated memory and the length of BinaryFileRecord
+      binInfile.read((char*)(myRecords + x), sizeof(BinaryFileRecord));
     }
   
   binInfile.close(); 
@@ -108,26 +111,36 @@ int main()
   /*
    * Dipslay a message
    */
-  
+ 
+  //Declare buffer array
   char buffer[100];
-  sprintf(buffer,"%X", myHeader -> magicNumber);
-  string str = "Magic: 0X";
-  str = str + buffer;
-  setCDKMatrixCell(myMatrix, 1, 1, str.c_str());
-  drawCDKMatrix(myMatrix, true);
-  str = "Version:  ";
-  str = str  + to_string(myHeader -> versionNumber);
-  setCDKMatrixCell(myMatrix, 1, 2, str.c_str());
-  drawCDKMatrix(myMatrix, true);
-  str = "NumRecords:  ";
-  str = str  + to_string(myHeader -> numRecords);
-  setCDKMatrixCell(myMatrix, 1, 3, str.c_str());
   
-  for(uint32_t i = 0; i < myHeader -> numRecords; i++)
+  //Converts a decimal number into hex 
+  sprintf(buffer,"%X", myHeader -> magicNumber);
+  
+  //Variable that holds the Magic Number 
+  string s = "Magic: 0X";
+  s = s + buffer; // Concatenates to the number from the buffer 
+  
+  setCDKMatrixCell(myMatrix, 1, 1, s.c_str());
+  drawCDKMatrix(myMatrix, true);
+  
+  s = "Version:  ";
+  s = s  + to_string(myHeader -> versionNumber);
+  
+  setCDKMatrixCell(myMatrix, 1, 2, s.c_str());
+  drawCDKMatrix(myMatrix, true);
+  
+  s = "NumRecords:  ";
+  s = s  + to_string(myHeader -> numRecords); // String Concatenation again
+  
+  setCDKMatrixCell(myMatrix, 1, 3, s.c_str());
+  
+  for(uint32_t x = 0; x < myHeader -> numRecords; x++)
     {
-      string str = "strlen: " + to_string(static_cast<uint16_t>(myRecords[i].strLength));
-      setCDKMatrixCell(myMatrix, 2 + i, 1, str.c_str());
-      setCDKMatrixCell(myMatrix, 2 + i, 2, myRecords[i].stringBuffer);
+      string s = "strlen: " + to_string(static_cast<uint16_t>(myRecords[x].strLength));
+      setCDKMatrixCell(myMatrix, 2 + x, 1, s.c_str());
+      setCDKMatrixCell(myMatrix, 2 + x, 2, myRecords[x].stringBuffer);
     }
 
   drawCDKMatrix(myMatrix, true);
